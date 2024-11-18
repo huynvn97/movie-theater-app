@@ -1,12 +1,21 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {View, StyleSheet, TextInput, FlatList, Text} from 'react-native';
-import {Movie, useGetMovies} from 'movie-theater-sdk';
+import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
+import useSearchDebounce from '../../hooks/useSearchDebounce';
 
 export default function HomeScreen() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const {movies} = useGetMovies();
-
+  const {movies, loading} = useGetMovies();
+  const {
+    runSearchMovie,
+    searchData,
+    loading: searchLoading,
+  } = useSearchMovies();
+  const {searchText, onChangeText} = useSearchDebounce({
+    searchFn: () => {
+      runSearchMovie(searchText);
+    },
+  });
   const {listHeight, ref} = useListItemHeight();
 
   const renderItem = useCallback(
@@ -28,13 +37,14 @@ export default function HomeScreen() {
       <TextInput
         style={styles.searchBar}
         placeholder="Search movies..."
-        value={searchQuery}
-        onChangeText={text => setSearchQuery(text)}
+        value={searchText}
+        onChangeText={text => onChangeText(text)}
       />
       <View style={{flex: 1}} ref={ref}>
         <FlatList
-          data={movies}
+          data={searchData?.length ? searchData : movies}
           renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
           initialNumToRender={10}
           windowSize={21}
           maxToRenderPerBatch={10}
