@@ -1,6 +1,7 @@
 import {Movie} from 'movie-theater-sdk';
 import {
   ImageBackground,
+  Pressable,
   StyleProp,
   StyleSheet,
   Text,
@@ -12,13 +13,16 @@ import {IMAGE_BASE_URL} from '../../utils/constants';
 type MovieCardProps = {
   item: Movie;
   containerStyle?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 };
 
 export default function MovieCard(props: MovieCardProps) {
   const {item, containerStyle = {}} = props;
 
   return (
-    <View style={[styles.item, StyleSheet.flatten(containerStyle)]}>
+    <Pressable
+      onPress={props.onPress}
+      style={[styles.item, StyleSheet.flatten(containerStyle)]}>
       <ImageBackground
         source={{
           uri: `${IMAGE_BASE_URL}/w500/${item.backdrop_path}`,
@@ -32,7 +36,7 @@ export default function MovieCard(props: MovieCardProps) {
       <Text style={styles.channelTitle} numberOfLines={2}>
         {item.overview}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
