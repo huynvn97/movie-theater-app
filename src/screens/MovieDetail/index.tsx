@@ -1,5 +1,10 @@
-import {ParamListBase, RouteProp, useRoute} from '@react-navigation/native';
-import {Movie, MovieReview, useMovieReviews} from 'movie-theater-sdk';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {
+  Movie,
+  MovieReview,
+  useMovieKeywords,
+  useMovieReviews,
+} from 'movie-theater-sdk';
 import React from 'react';
 import {
   Dimensions,
@@ -11,14 +16,22 @@ import {
   View,
 } from 'react-native';
 import {getImageUrl} from '../../utils/image';
+import Chip from '../../components/Chip';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function MovieDetailScreen() {
   const route = useRoute<RouteProp<{params: {movie: Movie}}>>();
   const {movie} = route.params;
-  const {data: reviews, loading: reviewLoading} = useMovieReviews({id: movie.id});
-  console.log(movie.id);
+  const {data: reviews, loading: reviewLoading} = useMovieReviews({
+    id: movie.id,
+  });
+  const {data: keywords} = useMovieKeywords({id: movie.id});
+  const {bottom} = useSafeAreaInsets();
+
   return (
-    <ScrollView style={[styles.container]}>
+    <ScrollView
+      style={[styles.container]}
+      contentContainerStyle={{paddingBottom: bottom}}>
       {/* Movie Poster */}
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
@@ -28,6 +41,11 @@ export default function MovieDetailScreen() {
       <Text style={styles.title}>{movie.title}</Text>
       {/* Movie Description */}
       <Text style={styles.description}>{movie.overview}</Text>
+
+      {/* Movie Keywords */}
+      <Text style={styles.sectionTitle}>Keywords</Text>
+      <Text>No info...</Text>
+
       {/* Movie Reviews */}
       <Text style={styles.sectionTitle}>Reviews</Text>
       <FlatList
@@ -50,7 +68,16 @@ export default function MovieDetailScreen() {
       />
 
       {/* Movie Keywords */}
-
+      <Text style={styles.sectionTitle}>Keywords</Text>
+      <View style={[styles.keywords]}>
+        {keywords?.map?.(keyword => (
+          <Chip
+            containerStyle={[styles.chipContainer]}
+            key={keyword.id}
+            label={keyword.name}
+          />
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -112,13 +139,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
   },
-  keyword: {
-    backgroundColor: '#e0e0e0',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    fontSize: 14,
-    color: '#444',
-    marginRight: 8,
+  keywords: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  chipContainer: {
+    marginBottom: 10,
   },
 });
