@@ -1,4 +1,6 @@
+import React from 'react';
 import {
+  Image,
   Pressable,
   StyleProp,
   StyleSheet,
@@ -6,12 +8,14 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import {getImageUrl} from '../../utils/image';
 
 type ChipProps = {
   label: string;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  leftIconUrl?: string;
 };
 
 export default function Chip({
@@ -19,9 +23,13 @@ export default function Chip({
   onPress,
   containerStyle,
   labelStyle,
+  leftIconUrl,
 }: ChipProps) {
   return (
     <Pressable onPress={onPress} style={[styles.container, containerStyle]}>
+      {leftIconUrl && (
+        <Image source={{uri: getImageUrl(leftIconUrl)}} style={[styles.icon]} />
+      )}
       <Text style={[styles.label, labelStyle]}>{label}</Text>
     </Pressable>
   );
@@ -36,6 +44,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#444',
     marginRight: 8,
+
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   label: {},
+  icon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 8,
+  },
 });
