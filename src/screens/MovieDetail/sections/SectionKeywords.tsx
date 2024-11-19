@@ -1,16 +1,20 @@
 import {MovieKeyword} from 'movie-theater-sdk';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, Text, View} from 'react-native';
 import Chip from '../../../components/Chip';
 
 type SectionKeywordsProps = {
   keywords: MovieKeyword[];
+  loading?: boolean;
 };
 export default function SectionKeywords(props: SectionKeywordsProps) {
   const {keywords} = props;
 
   return (
     <>
-      <Text style={styles.sectionTitle}>Keywords</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.sectionTitle}>Keywords</Text>
+        {props.loading && <ActivityIndicator />}
+      </View>
       <View style={[styles.keywords]}>
         {keywords?.map?.(keyword => (
           <Chip

@@ -1,14 +1,27 @@
 import {MovieReview} from 'movie-theater-sdk';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 type SectionReviewsProps = {
   reviews: MovieReview[];
+  loading?: boolean;
 };
 
-export default function SectionReviews({reviews}: SectionReviewsProps) {
+export default function SectionReviews({
+  reviews,
+  loading,
+}: SectionReviewsProps) {
   return (
     <>
-      <Text style={styles.sectionTitle}>Reviews</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.sectionTitle}>Reviews</Text>
+        {loading && <ActivityIndicator />}
+      </View>
       <FlatList
         horizontal
         data={reviews}

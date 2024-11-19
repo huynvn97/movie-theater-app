@@ -1,25 +1,13 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   Movie,
-  MovieActor,
-  MovieReview,
   useMovieActors,
   useMovieKeywords,
   useMovieReviews,
 } from 'movie-theater-sdk';
 import React, {useEffect} from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import {getImageUrl} from '../../utils/image';
-import Chip from '../../components/Chip';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SectionKeywords from './sections/SectionKeywords';
 import SectionActors from './sections/SectionActors';
@@ -34,7 +22,7 @@ export default function MovieDetailScreen() {
     id: movie.id,
   });
   const {data: keywords} = useMovieKeywords({id: movie.id});
-  const {data: actors} = useMovieActors({id: movie.id});
+  const {data: actors, loading: actorLoading} = useMovieActors({id: movie.id});
 
   const {bottom} = useSafeAreaInsets();
 
@@ -47,7 +35,7 @@ export default function MovieDetailScreen() {
   // TODO: Add a loading state
 
   return (
-    <EmptyScreenLayout>
+    <EmptyScreenLayout style={[styles.container]}>
       {/* Movie Poster */}
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
@@ -60,7 +48,7 @@ export default function MovieDetailScreen() {
       <Text style={styles.description}>{movie.overview}</Text>
 
       {/* Movie Actors */}
-      <SectionActors actors={actors} />
+      <SectionActors actors={actors} loading={actorLoading} />
 
       {/* Movie Reviews */}
       <SectionReviews reviews={reviews} />
@@ -72,6 +60,7 @@ export default function MovieDetailScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {paddingTop: 20},
   poster: {
     width: '100%',
     height: 300,
