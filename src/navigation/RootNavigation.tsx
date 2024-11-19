@@ -10,8 +10,20 @@ export default function RootNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="MovieDetail" component={MovieDetailScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'Movies',
+          }}
+        />
+        <Stack.Screen
+          name="MovieDetail"
+          component={MovieDetailScreen}
+          options={{
+            title: 'Movie Detail',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

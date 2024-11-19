@@ -1,11 +1,11 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   Movie,
   MovieReview,
   useMovieKeywords,
   useMovieReviews,
 } from 'movie-theater-sdk';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -20,6 +20,7 @@ import Chip from '../../components/Chip';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function MovieDetailScreen() {
+  const navigation = useNavigation();
   const route = useRoute<RouteProp<{params: {movie: Movie}}>>();
   const {movie} = route.params;
   const {data: reviews, loading: reviewLoading} = useMovieReviews({
@@ -27,6 +28,10 @@ export default function MovieDetailScreen() {
   });
   const {data: keywords} = useMovieKeywords({id: movie.id});
   const {bottom} = useSafeAreaInsets();
+
+  useEffect(() => {
+    navigation.setOptions({title: movie.title});
+  }, [movie.title]);
 
   return (
     <ScrollView
