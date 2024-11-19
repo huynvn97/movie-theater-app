@@ -5,10 +5,12 @@ import useListItemHeight from '../../hooks/useListItemHeight';
 import useSearchDebounce from '../../hooks/useSearchDebounce';
 import MovieCard from '../../components/MovieCard';
 import Input from '../../components/Input';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from '../../navigation/types';
 
 const ITEM_BOTTOM_SPACE = 8;
-
 export default function HomeScreen() {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {movies, loading} = useGetMovies();
   const {
     runSearchMovie,
@@ -42,6 +44,7 @@ export default function HomeScreen() {
             height: listItemHeight - ITEM_BOTTOM_SPACE,
             marginBottom: ITEM_BOTTOM_SPACE,
           }}
+          onPress={() => navigation.navigate('MovieDetail', {movie: item})}
         />
       );
     },
