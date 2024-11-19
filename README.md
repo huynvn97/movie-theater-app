@@ -5,11 +5,11 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Install
 ## Step 1: Install package
+After pulling the source code from the repository, open a new terminal and run the following command:
 ```bash
-# OR using Yarn
 yarn install
 ```
->**Note**: This step will also pull the sdk from repo: [movie-theater-sdk](https://github.com/huynvn97/movie-theater-sdk.git)
+>**Note**: This step will also pull the sdk from repo: [**movie-theater-sdk**](https://github.com/huynvn97/movie-theater-sdk.git)
 
 ## Step 2: Change API credentials (Optional)
 Go to App.tsx and edit section Config SDK
