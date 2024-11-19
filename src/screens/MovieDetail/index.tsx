@@ -30,10 +30,6 @@ export default function MovieDetailScreen() {
     navigation.setOptions({title: movie.title});
   }, [movie.title]);
 
-  // TODO: Handle load more and refresh movie's reviews
-  // TODO: handle error state
-  // TODO: Add a loading state
-
   return (
     <EmptyScreenLayout style={[styles.container]}>
       {/* Movie Poster */}

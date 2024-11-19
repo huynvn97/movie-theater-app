@@ -4,6 +4,7 @@ import RootNavigation from './src/navigation/RootNavigation';
 import {Provider} from 'react-redux';
 import {httpClient, init, stateManagerStore} from 'movie-theater-sdk';
 import {API_BASE_URL} from './src/utils/constants';
+import Toast from 'react-native-toast-message';
 
 /**
  * * Config SDK
@@ -17,11 +18,32 @@ httpClient.interceptors.request.use(config => {
   return config;
 });
 
+httpClient.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status === 401) {
+      //TODO: Handle Logout
+    }
+
+    // * Show error
+    Toast.show({
+      type: 'error',
+      text1: 'Error',
+      text2: error.response.data.status_message,
+    });
+  },
+);
+
 function App(): React.JSX.Element {
   return (
-    <Provider store={stateManagerStore}>
-      <RootNavigation />
-    </Provider>
+    <>
+      <Provider store={stateManagerStore}>
+        <RootNavigation />
+      </Provider>
+      <Toast />
+    </>
   );
 }
 

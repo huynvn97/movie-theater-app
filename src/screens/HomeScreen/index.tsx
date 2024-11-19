@@ -12,7 +12,6 @@ import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
 const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {
   // TODO: Handle load more and refresh list movies
-  // TODO: handle error state
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {movies, loading, runFetchMovies} = useGetMovies();
