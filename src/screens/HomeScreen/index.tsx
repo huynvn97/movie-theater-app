@@ -10,6 +10,10 @@ import {RootStackParamList} from '../../navigation/types';
 
 const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {
+  // TODO: Handle load more and refresh list movies
+  // TODO: handle error state
+  // TODO: Add a loading state
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {movies, loading} = useGetMovies();
   const {
