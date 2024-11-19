@@ -1,33 +1,56 @@
 import {ParamListBase, RouteProp, useRoute} from '@react-navigation/native';
-import {Movie} from 'movie-theater-sdk';
+import {Movie, MovieReview, useMovieReviews} from 'movie-theater-sdk';
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {getImageUrl} from '../../utils/image';
 
 export default function MovieDetailScreen() {
   const route = useRoute<RouteProp<{params: {movie: Movie}}>>();
   const {movie} = route.params;
-
+  const {data: reviews, loading: reviewLoading} = useMovieReviews({id: movie.id});
+  console.log(movie.id);
   return (
-    <ScrollView>
+    <ScrollView style={[styles.container]}>
       {/* Movie Poster */}
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.poster}
       />
-
       {/* Movie Title */}
       <Text style={styles.title}>{movie.title}</Text>
-
       {/* Movie Description */}
       <Text style={styles.description}>{movie.overview}</Text>
-
-      {/* Movie Actors */}
-
       {/* Movie Reviews */}
+      <Text style={styles.sectionTitle}>Reviews</Text>
+      <FlatList
+        horizontal
+        data={reviews}
+        keyExtractor={item => item.id}
+        renderItem={({item}: {item: MovieReview}) => {
+          return (
+            <View style={styles.review}>
+              <Text style={styles.reviewer}>{item.author}</Text>
+              <Text style={styles.rating}>
+                Rating: {item.author_details.rating}
+              </Text>
+              <Text style={styles.comment} numberOfLines={3}>
+                {item.content}
+              </Text>
+            </View>
+          );
+        }}
+      />
 
       {/* Movie Keywords */}
-     
+
     </ScrollView>
   );
 }
@@ -42,6 +65,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     marginBottom: 16,
+    borderRadius: 8,
   },
   title: {
     fontSize: 24,
@@ -70,10 +94,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginBottom: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    width: Dimensions.get('window').width / 1.5,
+    marginRight: 10,
   },
   reviewer: {
     fontSize: 16,
