@@ -80,7 +80,7 @@ export default function HomeScreen() {
 
       <View ref={containerRef} style={{flex: 1}}>
         <FlatList
-          data={searchData?.length ? searchData : movies}
+          data={searchText ? searchData : movies}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
