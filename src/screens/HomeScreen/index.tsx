@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
-import {View, StyleSheet, TextInput, FlatList, Text} from 'react-native';
+import {View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
 import useSearchDebounce from '../../hooks/useSearchDebounce';
+import MovieCard from '../../components/MovieCard';
 
 export default function HomeScreen() {
   const {movies, loading} = useGetMovies();
@@ -16,20 +17,15 @@ export default function HomeScreen() {
       runSearchMovie(searchText);
     },
   });
-  const {listHeight, ref} = useListItemHeight();
+  const {listItemHeight, containerRef} = useListItemHeight();
 
   const renderItem = useCallback(
     ({item}: {item: Movie}) => {
       return (
-        <View style={[styles.item, {height: listHeight}]}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.channelTitle} numberOfLines={2}>
-            {item.overview}
-          </Text>
-        </View>
+        <MovieCard item={item} containerStyle={{height: listItemHeight}} />
       );
     },
-    [listHeight],
+    [listItemHeight],
   );
 
   return (
@@ -40,7 +36,7 @@ export default function HomeScreen() {
         value={searchText}
         onChangeText={text => onChangeText(text)}
       />
-      <View style={{flex: 1}} ref={ref}>
+      <View ref={containerRef} style={{flex: 1}}>
         <FlatList
           data={searchData?.length ? searchData : movies}
           renderItem={renderItem}
@@ -70,12 +66,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
-  item: {
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  channelTitle: {},
 });

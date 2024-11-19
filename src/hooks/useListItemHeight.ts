@@ -4,21 +4,30 @@ import {Dimensions, View} from 'react-native';
 type Options = {
   itemsOnScreen: number;
 };
+
+/**
+ * * Handle return height of each item should show on screen
+ * * Make sure the screen will show itemsOnScreen: number on screens
+ * @param options
+ * @returns { listItemHeight }
+ */
 export default function useListItemHeight(
   options: Options = {
     itemsOnScreen: 10,
   },
 ) {
-  const [listHeight, setListHeight] = useState(Dimensions.get('window').height);
-  const ref = useRef<View>(null);
+  const [listItemHeight, setListItemHeight] = useState(
+    Dimensions.get('window').height,
+  );
+  const containerRef = useRef<View>(null);
 
   useLayoutEffect(() => {
-    ref.current?.measure((x, y, width, height) => {
+    containerRef.current?.measure((x, y, width, height) => {
       if (height) {
-        setListHeight(height / options.itemsOnScreen);
+        setListItemHeight(height / options.itemsOnScreen);
       }
     });
-  }, [ref.current, options.itemsOnScreen]);
+  }, [containerRef.current, options.itemsOnScreen]);
 
-  return {listHeight, ref};
+  return {listItemHeight, containerRef};
 }
