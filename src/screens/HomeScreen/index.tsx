@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useLayoutEffect} from 'react';
 import {View, StyleSheet, TextInput, FlatList, Text} from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
@@ -21,8 +21,18 @@ export default function HomeScreen() {
     },
   });
 
-  const {listItemHeight, containerRef} = useListItemHeight();
+  const inputWrapperRef = React.useRef<View>(null);
+  const [inputHeight, setInputHeight] = React.useState(0);
+  useLayoutEffect(() => {
+    inputWrapperRef.current?.measure((x, y, width, height) => {
+      setInputHeight(height);
+    });
+  }, []);
 
+  const {listItemHeight, containerRef} = useListItemHeight({
+    distractHeight: inputHeight + styles.container.padding * 2,
+    itemsOnScreen: 10,
+  });
   const renderItem = useCallback(
     ({item}: {item: Movie}) => {
       return (
@@ -40,24 +50,24 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container]}>
-      <Input
-        leftElement={<Text>Search:</Text>}
-        placeholder="Enter movie name or #keywords..."
-        value={searchText}
-        onChangeText={text => onChangeText(text)}
-        loading={searchLoading}
-        autoComplete='off'
-        autoCorrect={false}
-      />
+      <View ref={inputWrapperRef}>
+        <Input
+          leftElement={<Text>Search:</Text>}
+          placeholder="Enter movie name or #keywords..."
+          value={searchText}
+          onChangeText={text => onChangeText(text)}
+          loading={searchLoading}
+          autoComplete="off"
+          autoCorrect={false}
+          containerStyle={{marginBottom: 10}}
+        />
+      </View>
 
       <View ref={containerRef} style={{flex: 1}}>
         <FlatList
           data={searchData?.length ? searchData : movies}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          initialNumToRender={10}
-          windowSize={21}
-          maxToRenderPerBatch={10}
           showsVerticalScrollIndicator={false}
         />
       </View>

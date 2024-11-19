@@ -13,13 +13,14 @@ type InputProps = TextInputProps & {
   rightElement?: React.ReactNode;
   loading?: boolean;
 
+  containerStyle?: StyleProp<ViewStyle>;
   leftContainerStyle?: StyleProp<ViewStyle>;
   rightContainerStyle?: StyleProp<ViewStyle>;
 };
 
 export default function Input(props: InputProps) {
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, StyleSheet.flatten(props.containerStyle)]}>
       <View
         style={[
           styles.leftContainer,
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     paddingHorizontal: 10,
-    marginBottom: 10,
 
     flexDirection: 'row',
     alignItems: 'center',
