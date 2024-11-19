@@ -12,40 +12,37 @@ type SectionActorsProps = {
 export default function SectionActors({actors, showFull}: SectionActorsProps) {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  const viewData = showFull ? actors : actors.slice(0, 10);
+
   return (
     <View style={[styles.keywords]}>
-      <FlatList
-        ListHeaderComponent={
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.sectionTitle}>Actors</Text>
-            {!showFull && (
-              <Pressable
-                onPress={() =>
-                  navigation.navigate('MovieDetailAllActors', {actors: actors})
-                }>
-                <Text>View all</Text>
-              </Pressable>
-            )}
-          </View>
-        }
-        data={showFull ? actors : actors.slice(0, 10)}
-        keyExtractor={item => item.id.toString()}
-        numColumns={2}
-        renderItem={({item}: {item: MovieActor}) => {
-          return (
-            <Chip
-              containerStyle={[styles.chipContainer]}
-              label={item.name}
-              leftIconUrl={item?.profile_path || ''}
-            />
-          );
-        }}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Text style={styles.sectionTitle}>Actors</Text>
+        {!showFull && (
+          <Pressable
+            onPress={() =>
+              navigation.navigate('MovieDetailAllActors', {actors: actors})
+            }>
+            <Text>View all</Text>
+          </Pressable>
+        )}
+      </View>
+
+      <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        {viewData.map(actor => (
+          <Chip
+            key={actor.id}
+            containerStyle={[styles.chipContainer]}
+            label={actor.name}
+            leftIconUrl={actor?.profile_path || ''}
+          />
+        ))}
+      </View>
     </View>
   );
 }
