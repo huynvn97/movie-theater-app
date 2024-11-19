@@ -22,6 +22,7 @@ export default function MovieCard(props: MovieCardProps) {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#fff',
+    padding: 8,
   },
   title: {
     fontSize: 16,
