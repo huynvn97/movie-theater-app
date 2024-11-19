@@ -32,7 +32,7 @@ export default function useListItemHeight(
         );
       }
     });
-  }, [containerRef.current, options.itemsOnScreen]);
+  }, [options.distractHeight, options.itemsOnScreen]);
 
   return {listItemHeight, containerRef};
 }

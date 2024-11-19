@@ -21,19 +21,19 @@ export default function useSearchDebounce(options: Options) {
         options.searchFn(queryText);
       }, options.delay || 250);
     },
-    [options.searchFn, options.delay],
+    [options],
   );
 
   /**
    * When user types in the search bar, this function will be called.
    */
-  const onChangeText = (text: string) => {
-    setSearchText(text);
-  };
-
-  useEffect(() => {
-    handleOnSearch(searchText);
-  }, [searchText]);
+  const onChangeText = useCallback(
+    (text: string) => {
+      setSearchText(text);
+      handleOnSearch(text);
+    },
+    [handleOnSearch],
+  );
 
   return {
     onChangeText: onChangeText,

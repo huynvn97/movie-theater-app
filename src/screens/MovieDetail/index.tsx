@@ -8,7 +8,6 @@ import {
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text} from 'react-native';
 import {getImageUrl} from '../../utils/image';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SectionKeywords from './sections/SectionKeywords';
 import SectionActors from './sections/SectionActors';
 import SectionReviews from './sections/SectionReviews';
@@ -21,14 +20,14 @@ export default function MovieDetailScreen() {
   const {data: reviews, loading: reviewLoading} = useMovieReviews({
     id: movie.id,
   });
-  const {data: keywords} = useMovieKeywords({id: movie.id});
+  const {data: keywords, loading: keywordLoading} = useMovieKeywords({
+    id: movie.id,
+  });
   const {data: actors, loading: actorLoading} = useMovieActors({id: movie.id});
-
-  const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
     navigation.setOptions({title: movie.title});
-  }, [movie.title]);
+  }, [movie.title, navigation]);
 
   return (
     <EmptyScreenLayout style={[styles.container]}>
@@ -47,10 +46,10 @@ export default function MovieDetailScreen() {
       <SectionActors actors={actors} loading={actorLoading} />
 
       {/* Movie Reviews */}
-      <SectionReviews reviews={reviews} />
+      <SectionReviews reviews={reviews} loading={reviewLoading} />
 
       {/* Movie Keywords */}
-      <SectionKeywords keywords={keywords} />
+      <SectionKeywords keywords={keywords} loading={keywordLoading} />
     </EmptyScreenLayout>
   );
 }

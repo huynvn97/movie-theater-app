@@ -1,5 +1,6 @@
+import React from 'react';
 import {MovieKeyword} from 'movie-theater-sdk';
-import {ActivityIndicator, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import Chip from '../../../components/Chip';
 
 type SectionKeywordsProps = {
@@ -11,7 +12,7 @@ export default function SectionKeywords(props: SectionKeywordsProps) {
 
   return (
     <>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.header}>
         <Text style={styles.sectionTitle}>Keywords</Text>
         {props.loading && <ActivityIndicator />}
       </View>
@@ -42,4 +43,5 @@ const styles = StyleSheet.create({
   chipContainer: {
     marginBottom: 10,
   },
+  header: {flexDirection: 'row'},
 });

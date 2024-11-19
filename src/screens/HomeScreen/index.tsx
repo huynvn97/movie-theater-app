@@ -7,7 +7,6 @@ import MovieCard from '../../components/MovieCard';
 import Input from '../../components/Input';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/types';
-import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
 
 const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {
@@ -51,7 +50,7 @@ export default function HomeScreen() {
         />
       );
     },
-    [listItemHeight],
+    [listItemHeight, navigation],
   );
 
   const onRefreshList = () => {

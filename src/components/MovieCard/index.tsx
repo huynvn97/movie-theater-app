@@ -1,3 +1,4 @@
+import React from 'react';
 import {Movie} from 'movie-theater-sdk';
 import {
   ImageBackground,
@@ -8,7 +9,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {IMAGE_BASE_URL} from '../../utils/constants';
 import {getImageUrl} from '../../utils/image';
 
 type MovieCardProps = {

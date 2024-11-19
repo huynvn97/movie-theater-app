@@ -1,5 +1,6 @@
+import React from 'react';
 import {PropsWithChildren} from 'react';
-import {ScrollView, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {ScrollView, StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function EmptyScreenLayout(

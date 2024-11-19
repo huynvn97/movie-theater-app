@@ -1,6 +1,6 @@
+import React from 'react';
 import {
   ActivityIndicator,
-  FlatList,
   Pressable,
   StyleSheet,
   Text,
@@ -29,7 +29,7 @@ export default function SectionActors({
   return (
     <View style={[styles.keywords]}>
       <View style={[styles.sectionHeader]}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.header}>
           <Text style={styles.sectionTitle}>Actors</Text>
           {loading && <ActivityIndicator />}
         </View>
@@ -44,7 +44,7 @@ export default function SectionActors({
         )}
       </View>
 
-      <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+      <View style={styles.list}>
         {viewData.map(actor => (
           <Chip
             key={actor.id}
@@ -75,5 +75,9 @@ const styles = StyleSheet.create({
   },
   chipContainer: {
     marginBottom: 10,
+  },
+  list: {flexDirection: 'row', flexWrap: 'wrap'},
+  header: {
+    flexDirection: 'row',
   },
 });

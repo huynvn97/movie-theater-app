@@ -1,3 +1,4 @@
+import React from 'react';
 import {MovieReview} from 'movie-theater-sdk';
 import {
   ActivityIndicator,
@@ -18,7 +19,7 @@ export default function SectionReviews({
 }: SectionReviewsProps) {
   return (
     <>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.header}>
         <Text style={styles.sectionTitle}>Reviews</Text>
         {loading && <ActivityIndicator />}
       </View>
@@ -69,4 +70,5 @@ const styles = StyleSheet.create({
   comment: {
     color: '#555',
   },
+  header: {flexDirection: 'row'},
 });
