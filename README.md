@@ -24,6 +24,7 @@ httpClient.interceptors.request.use(config => {
   return config;
 });
 ```
+The credentials should be obtained from [MovieDB for Dev](https://www.themoviedb.org/settings/api)
 
 # Getting Started
 
@@ -44,22 +45,21 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
 yarn android
 ```
 
 ### For iOS
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
 yarn ios
 ```
+
+> **ℹ️ INFO**  
+> If you are having trouble with iOS, try to reinstall the dependencies by running:
+>
+> 1. `cd ios` to navigate to the `ios` folder.  
+> 2. `bundle install` to install Bundler.  
+> 3. `bundle exec pod install` to install the iOS dependencies managed by CocoaPods.
 
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
