@@ -1,12 +1,17 @@
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import Chip from '../../../components/Chip';
 import {MovieActor} from 'movie-theater-sdk';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../../navigation/types';
 
 type SectionActorsProps = {
   actors: MovieActor[];
+  showFull?: boolean;
 };
 
-export default function SectionActors({actors}: SectionActorsProps) {
+export default function SectionActors({actors, showFull}: SectionActorsProps) {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <View style={[styles.keywords]}>
       <FlatList
@@ -18,12 +23,17 @@ export default function SectionActors({actors}: SectionActorsProps) {
               alignItems: 'center',
             }}>
             <Text style={styles.sectionTitle}>Actors</Text>
-            <Pressable>
-              <Text>View all</Text>
-            </Pressable>
+            {!showFull && (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate('MovieDetailAllActors', {actors: actors})
+                }>
+                <Text>View all</Text>
+              </Pressable>
+            )}
           </View>
         }
-        data={actors.slice(0, 10)}
+        data={showFull ? actors : actors.slice(0, 10)}
         keyExtractor={item => item.id.toString()}
         numColumns={2}
         renderItem={({item}: {item: MovieActor}) => {
