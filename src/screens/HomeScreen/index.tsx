@@ -1,5 +1,5 @@
 import React, {useCallback, useLayoutEffect} from 'react';
-import {View, StyleSheet, TextInput, FlatList, Text} from 'react-native';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
 import useSearchDebounce from '../../hooks/useSearchDebounce';
@@ -7,6 +7,7 @@ import MovieCard from '../../components/MovieCard';
 import Input from '../../components/Input';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/types';
+import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
 
 const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {
@@ -56,7 +57,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <View style={[styles.container]}>
+    <EmptyScreenLayout style={[styles.container]}>
       <View ref={inputWrapperRef}>
         <Input
           leftElement={<Text>Search:</Text>}
@@ -78,14 +79,13 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
         />
       </View>
-    </View>
+    </EmptyScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
-    backgroundColor: '#f8f9fa',
+    paddingTop: 20
   },
 });

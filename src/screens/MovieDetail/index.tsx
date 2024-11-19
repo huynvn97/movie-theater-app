@@ -24,6 +24,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SectionKeywords from './sections/SectionKeywords';
 import SectionActors from './sections/SectionActors';
 import SectionReviews from './sections/SectionReviews';
+import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
 
 export default function MovieDetailScreen() {
   const navigation = useNavigation();
@@ -46,9 +47,7 @@ export default function MovieDetailScreen() {
   // TODO: Add a loading state
 
   return (
-    <ScrollView
-      style={[styles.container]}
-      contentContainerStyle={{paddingBottom: bottom}}>
+    <EmptyScreenLayout>
       {/* Movie Poster */}
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
@@ -68,16 +67,11 @@ export default function MovieDetailScreen() {
 
       {/* Movie Keywords */}
       <SectionKeywords keywords={keywords} />
-    </ScrollView>
+    </EmptyScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f8f9fa',
-  },
   poster: {
     width: '100%',
     height: 300,
