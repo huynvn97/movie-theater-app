@@ -9,6 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {IMAGE_BASE_URL} from '../../utils/constants';
+import {getImageUrl} from '../../utils/image';
 
 type MovieCardProps = {
   item: Movie;
@@ -19,13 +20,15 @@ type MovieCardProps = {
 export default function MovieCard(props: MovieCardProps) {
   const {item, containerStyle = {}} = props;
 
+  // TODO: place holder image
+
   return (
     <Pressable
       onPress={props.onPress}
       style={[styles.item, StyleSheet.flatten(containerStyle)]}>
       <ImageBackground
         source={{
-          uri: `${IMAGE_BASE_URL}/w500/${item.backdrop_path}`,
+          uri: getImageUrl(item.backdrop_path),
         }}
         style={styles.imgBackground}
         resizeMethod="auto"
