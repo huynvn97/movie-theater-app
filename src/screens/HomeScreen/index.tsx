@@ -1,5 +1,5 @@
 import React, {useCallback, useLayoutEffect} from 'react';
-import {View, StyleSheet, FlatList, Text} from 'react-native';
+import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
 import useSearchDebounce from '../../hooks/useSearchDebounce';
@@ -13,10 +13,9 @@ const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {
   // TODO: Handle load more and refresh list movies
   // TODO: handle error state
-  // TODO: Add a loading state
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {movies, loading} = useGetMovies();
+  const {movies, loading, runFetchMovies} = useGetMovies();
   const {
     runSearchMovie,
     searchData,
@@ -56,8 +55,16 @@ export default function HomeScreen() {
     [listItemHeight],
   );
 
+  const onRefreshList = () => {
+    if (searchText) {
+      runSearchMovie(searchText);
+    } else {
+      runFetchMovies();
+    }
+  };
+
   return (
-    <EmptyScreenLayout style={[styles.container]}>
+    <View style={[styles.container]}>
       <View ref={inputWrapperRef}>
         <Input
           leftElement={<Text>Search:</Text>}
@@ -77,15 +84,20 @@ export default function HomeScreen() {
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={onRefreshList} />
+          }
+          ListEmptyComponent={<Text>No data...</Text>}
         />
       </View>
-    </EmptyScreenLayout>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
-    paddingTop: 20
+    paddingTop: 20,
   },
 });
