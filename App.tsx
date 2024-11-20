@@ -9,15 +9,16 @@ import Toast from 'react-native-toast-message';
 /**
  * * Config SDK
  */
-init({baseURL: API_BASE_URL});
-httpClient.interceptors.request.use(config => {
-  // TODO: in real project, we should get token from storage
-  // TODO: in real project, BASE_URL should be from .env
-  config.headers.Authorization =
-    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOTgyYzUwNWQ4MzI0MDQxN2Q0NzY2MzhmNmQ0NjY3NyIsIm5iZiI6MTczMTk0NzM3NC4wMjU5NjA0LCJzdWIiOiI2NzNiNmIwMjZhMDJhMjRkN2IyMWFmMzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Sx54NFz2JLToJ23OouVM9kco8vcUXz9ElgHwHr5vZos';
-  return config;
+init({
+  baseURL: API_BASE_URL,
+  // TODO: Need to handle login and save to secure storage
+  appToken:
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOTgyYzUwNWQ4MzI0MDQxN2Q0NzY2MzhmNmQ0NjY3NyIsIm5iZiI6MTczMTk0NzM3NC4wMjU5NjA0LCJzdWIiOiI2NzNiNmIwMjZhMDJhMjRkN2IyMWFmMzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Sx54NFz2JLToJ23OouVM9kco8vcUXz9ElgHwHr5vZos',
 });
 
+/**
+ * * Custom sdk client to show error
+ */
 httpClient.interceptors.response.use(
   response => {
     return response;
