@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chip Component testing renders correctly - has pressable 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#e0e0e0",
+        "borderRadius": 16,
+        "color": "#444",
+        "flexDirection": "row",
+        "fontSize": 14,
+        "marginRight": 8,
+        "paddingHorizontal": 12,
+        "paddingVertical": 6,
+      },
+      undefined,
+    ]
+  }
+  testID="ChipPressableTestID"
+>
+  <Text
+    style={
+      [
+        {},
+        undefined,
+      ]
+    }
+  >
+    Test Chip Press
+  </Text>
+</View>
+`;
+
+exports[`Chip Component testing renders correctly - simple 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#e0e0e0",
+        "borderRadius": 16,
+        "color": "#444",
+        "flexDirection": "row",
+        "fontSize": 14,
+        "marginRight": 8,
+        "paddingHorizontal": 12,
+        "paddingVertical": 6,
+      },
+      undefined,
+    ]
+  }
+  testID="ChipPressableTestID"
+>
+  <Text
+    style={
+      [
+        {},
+        undefined,
+      ]
+    }
+  >
+    Test Chip
+  </Text>
+</View>
+`;

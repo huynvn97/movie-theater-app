@@ -26,7 +26,7 @@ export default function Chip({
   leftIconUrl,
 }: ChipProps) {
   return (
-    <Pressable onPress={onPress} style={[styles.container, containerStyle]}>
+    <Pressable testID='ChipPressableTestID' onPress={onPress} style={[styles.container, containerStyle]}>
       {leftIconUrl && (
         <Image source={{uri: getImageUrl(leftIconUrl)}} style={[styles.icon]} />
       )}
