@@ -6,10 +6,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import Chip from '../../../components/Chip';
 import {MovieActor} from 'movie-theater-sdk';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigation/types';
+import Chip from '@components/Chip';
+import {RootStackParamList} from '@navigation/types';
 
 type SectionActorsProps = {
   actors: MovieActor[];

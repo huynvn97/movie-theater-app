@@ -8,7 +8,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import {getImageUrl} from '../../utils/image';
+import {getImageUrl} from '@utils/image';
 
 type ChipProps = {
   label: string;

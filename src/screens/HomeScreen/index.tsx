@@ -8,12 +8,12 @@ import {
   Platform,
 } from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
-import useListItemHeight from '../../hooks/useListItemHeight';
-import useSearchDebounce from '../../hooks/useSearchDebounce';
-import MovieCard from '../../components/MovieCard';
-import Input from '../../components/Input';
+import useListItemHeight from '@hooks/useListItemHeight';
+import useSearchDebounce from '@hooks/useSearchDebounce';
+import MovieCard from '@components/MovieCard';
+import Input from '@components/Input';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/types';
+import {RootStackParamList} from '@navigation/types';
 
 const ITEM_BOTTOM_SPACE = 8;
 export default function HomeScreen() {

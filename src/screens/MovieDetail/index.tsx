@@ -7,11 +7,11 @@ import {
 } from 'movie-theater-sdk';
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text} from 'react-native';
-import {getImageUrl} from '../../utils/image';
+import {getImageUrl} from '@utils/image';
+import EmptyScreenLayout from '@components/Layouts/EmptyScreenLayout';
 import SectionKeywords from './sections/SectionKeywords';
 import SectionActors from './sections/SectionActors';
 import SectionReviews from './sections/SectionReviews';
-import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
 
 export default function MovieDetailScreen() {
   const navigation = useNavigation();

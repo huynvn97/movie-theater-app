@@ -1,9 +1,9 @@
 import React from 'react';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import SectionActors from '../MovieDetail/sections/SectionActors';
+import SectionActors from '@screens/MovieDetail/sections/SectionActors';
 import {MovieActor} from 'movie-theater-sdk';
 import {StyleSheet} from 'react-native';
-import EmptyScreenLayout from '../../components/Layouts/EmptyScreenLayout';
+import EmptyScreenLayout from '@components/Layouts/EmptyScreenLayout';
 
 export default function MovieDetailAllActorsScreen() {
   const {

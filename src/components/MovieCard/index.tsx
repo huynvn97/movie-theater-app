@@ -9,7 +9,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {getImageUrl} from '../../utils/image';
+import {getImageUrl} from '@utils/image';
 
 type MovieCardProps = {
   item: Movie;

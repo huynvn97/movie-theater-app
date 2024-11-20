@@ -1,7 +1,7 @@
 import React from 'react';
 import {MovieKeyword} from 'movie-theater-sdk';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import Chip from '../../../components/Chip';
+import Chip from '@components/Chip';
 
 type SectionKeywordsProps = {
   keywords: MovieKeyword[];
