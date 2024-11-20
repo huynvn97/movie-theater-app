@@ -22,6 +22,8 @@ export default function MovieCard(props: MovieCardProps) {
 
   // TODO: place holder image
 
+  const [contentHeight, setContentHeight] = React.useState(0);
+
   return (
     <Pressable
       onPress={props.onPress}
@@ -35,10 +37,23 @@ export default function MovieCard(props: MovieCardProps) {
         resizeMode="cover">
         <View style={styles.imgWrapper} />
       </ImageBackground>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.channelTitle} numberOfLines={2}>
-        {item.overview}
+      <Text style={styles.title} numberOfLines={1}>
+        {item.title}
       </Text>
+
+      <View
+        style={[styles.descriptionWrapper]}
+        onLayout={event => {
+          setContentHeight(event.nativeEvent.layout.height);
+        }}>
+        <Text
+          style={[styles.channelTitle]}
+          numberOfLines={Math.floor(
+            contentHeight / styles.channelTitle.lineHeight,
+          )}>
+          {item.overview}
+        </Text>
+      </View>
     </Pressable>
   );
 }
@@ -57,6 +72,7 @@ const styles = StyleSheet.create({
   },
   channelTitle: {
     color: 'white',
+    lineHeight: 16,
   },
   imgBackground: {
     position: 'absolute',
@@ -68,5 +84,8 @@ const styles = StyleSheet.create({
   imgWrapper: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  descriptionWrapper: {
+    flex: 1,
   },
 });

@@ -1,5 +1,12 @@
 import React, {useCallback, useLayoutEffect} from 'react';
-import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  RefreshControl,
+  Platform,
+} from 'react-native';
 import {Movie, useGetMovies, useSearchMovies} from 'movie-theater-sdk';
 import useListItemHeight from '../../hooks/useListItemHeight';
 import useSearchDebounce from '../../hooks/useSearchDebounce';
@@ -34,7 +41,10 @@ export default function HomeScreen() {
   }, []);
 
   const {listItemHeight, containerRef} = useListItemHeight({
-    distractHeight: inputHeight + styles.container.padding * 2,
+    distractHeight: Platform.select({
+      ios: inputHeight + styles.container.padding * 2, // Because, at first layout calculation, ios calculates height is full content
+      default: 0,
+    }),
     itemsOnScreen: 10,
   });
   const renderItem = useCallback(
